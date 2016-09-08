@@ -20,7 +20,8 @@ public class Room {
 
     public Room(){}
 
-    public Room(String roomName, boolean reservated, List<Reservation> reservations) {
+    public Room(Long id, String roomName, boolean reservated, List<Reservation> reservations) {
+        this.id = id;
         this.roomName = roomName;
         this.reservated = reservated;
         this.reservations = reservations;
@@ -48,5 +49,13 @@ public class Room {
 
     public void setReservated(boolean reservated) {
         this.reservated = reservated;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

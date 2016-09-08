@@ -27,7 +27,8 @@ public class User {
     public User() {
     }
 
-    public User(String name, String lastName, String username, String password, List<Reservation> reservations) {
+    public User(Long id, String name, String lastName, String username, String password, List<Reservation> reservations) {
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.username = username;
@@ -73,5 +74,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

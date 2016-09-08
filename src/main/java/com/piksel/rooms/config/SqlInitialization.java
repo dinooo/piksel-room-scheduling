@@ -34,7 +34,7 @@ public class SqlInitialization {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
-        entityManagerFactoryBean.setPackagesToScan("com.piksel.rooms.representations");
+        entityManagerFactoryBean.setPackagesToScan("com.piksel.rooms.representation");
         entityManagerFactoryBean.setJpaProperties(buildHibernateProperties());
         entityManagerFactoryBean.setJpaProperties(new Properties() {{
             put("hibernate.current_session_context_class", SpringSessionContext.class.getName());

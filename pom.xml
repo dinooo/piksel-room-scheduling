@@ -15,7 +15,7 @@
     </parent>
 
     <properties>
-        <start-class>com.piksel.Application</start-class>
+        <start-class>com.piksel.rooms.Application</start-class>
         <postgresql-version>9.4.1209.jre7</postgresql-version>
         <jersey-version>2.23.1</jersey-version>
         <jackson-version>2.8.1</jackson-version>
@@ -45,20 +45,6 @@
         </dependency>
         <!-- End Postgres -->
 
-
-        <!-- Jackson -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
-            <version>${jackson-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-hibernate4</artifactId>
-            <version>${jackson-version}</version>
-        </dependency>
-        <!-- End Jackson -->
-
         <!-- Jersey -->
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
@@ -76,6 +62,19 @@
             <version>${jersey-version}</version>
         </dependency>
         <!-- End Jersey -->
+
+        <!-- Jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate4</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+        <!-- End Jackson -->
 
         <!-- Security -->
         <dependency>
@@ -107,11 +106,8 @@
         </dependency>
         <!-- End Joda Time -->
 
-    </dependencies>
 
-    <properties>
-        <start-class>com.discount.Application</start-class>
-    </properties>
+    </dependencies>
 
     <build>
         <plugins>
@@ -130,4 +126,16 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>spring-releases</id>
+            <url>http://repo.spring.io/libs-release</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-releases</id>
+            <url>http://repo.spring.io/libs-release</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

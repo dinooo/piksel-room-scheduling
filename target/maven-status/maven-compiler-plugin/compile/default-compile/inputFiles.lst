@@ -1,0 +1,13 @@
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/Application.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/representation/Reservation.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/representation/Room.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/resources/RoomsResource.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/persistence/ReservationDao.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/persistence/UserDao.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/resources/UsersResource.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/resources/ReservationsResource.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/config/ObjectMapperFactory.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/config/SqlInitialization.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/config/JerseyInitialization.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/representation/User.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/persistence/RoomDao.java
