@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-public class User {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,17 +24,10 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Reservation> reservations;
 
-    public User() {
+    public Member() {
     }
 
-    public User(Long id, String name, String lastName, String username, String password, List<Reservation> reservations) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.reservations = reservations;
-    }
+
 
     public Long getId() {
         return id;

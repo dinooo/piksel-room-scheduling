@@ -1,7 +1,7 @@
 package com.piksel.rooms.resources;
 
-import com.piksel.rooms.persistence.UserDao;
-import com.piksel.rooms.representation.User;
+import com.piksel.rooms.persistence.MemberDao;
+import com.piksel.rooms.representation.Member;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -12,58 +12,57 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/users")
+@Path("/members")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 @Component
-public class UsersResource {
+public class MembersResource {
 
-    private UserDao userDao;
+    private MemberDao memberDao;
     @Inject
-    public UsersResource(UserDao userDao){
-        this.userDao = userDao;
+    public MembersResource(MemberDao memberDao){
+        this.memberDao = memberDao;
     }
 
     @GET
-    public List<User> getAll(){
-        List<User> users = this.userDao.findAll();
-        return users;
+    public List<Member> getAll(){
+        return this.memberDao.findAll();
     }
 
     @GET
     @Path("{id}")
-    public User getOne(@PathParam("id") long id){
-        User user = userDao.findOne(id);
-        if(user == null)
+    public Member getOne(@PathParam("id") long id){
+        Member member = memberDao.findOne(id);
+        if(member == null)
             throw new WebApplicationException(Response.Status.NOT_FOUND);
-        return user;
+        return member;
     }
 
     @POST
-    public User save(@Valid User user) {
-        return userDao.save(user);
+    public Member save(@Valid Member member) {
+        return memberDao.save(member);
     }
 
     @PUT
     @Path("{id}")
-    public User update(@PathParam("id")long id, @Valid User user) {
-        if(userDao.findOne(id) == null){
+    public Member update(@PathParam("id")long id, @Valid Member member) {
+        if(memberDao.findOne(id) == null){
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }else {
-            user.setId(id);
-            return userDao.save(user);
+            member.setId(id);
+            return memberDao.save(member);
         }
     }
 
     @DELETE
     @Path("{id}")
     public void delete(@PathParam("id")long id) {
-        User user = userDao.findOne(id);
-        if(user == null){
+        Member member = memberDao.findOne(id);
+        if(member == null){
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }else {
-            userDao.delete(user);
+            memberDao.delete(member);
         }
     }
 

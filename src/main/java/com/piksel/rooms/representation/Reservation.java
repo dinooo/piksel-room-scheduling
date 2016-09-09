@@ -18,11 +18,14 @@ public class Reservation {
     @NotNull
     @Column(name = "reservation_end")
     private DateTime end;
+
     private String description;
 
     @NotNull
     @Column(name = "is_occuring")
     private boolean isOccuring;
+
+    private int numberOfOccuring;
 
     @JoinColumn(name = "room_id")
     private Long roomId;
@@ -31,12 +34,12 @@ public class Reservation {
 
     public Reservation(){}
 
-    public Reservation(Long id, DateTime start, DateTime end, String description, boolean isOccuring, Long roomId, Long userId) {
-        this.id = id;
+    public Reservation(DateTime start, DateTime end, String description, boolean isOccuring, int numberOfOccuring, Long roomId, Long userId) {
         this.start = start;
         this.end = end;
         this.description = description;
         this.isOccuring = isOccuring;
+        this.numberOfOccuring = numberOfOccuring;
         this.roomId = roomId;
         this.userId = userId;
     }
@@ -93,5 +96,7 @@ public class Reservation {
 
     public void setOccuring(boolean occuring) { isOccuring = occuring; }
 
+    public int getNumberOfOccuring() { return numberOfOccuring; }
 
+    public void setNumberOfOccuring(int numberOfOccuring) { this.numberOfOccuring = numberOfOccuring; }
 }

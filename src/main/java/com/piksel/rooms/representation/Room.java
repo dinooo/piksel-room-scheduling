@@ -10,6 +10,7 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
+    @Column(name = "room_name")
     private String roomName;
     @NotNull
     private boolean reservated;
@@ -20,8 +21,8 @@ public class Room {
 
     public Room(){}
 
-    public Room(Long id, String roomName, boolean reservated, List<Reservation> reservations) {
-        this.id = id;
+    public Room(String roomName, boolean reservated, List<Reservation> reservations) {
+
         this.roomName = roomName;
         this.reservated = reservated;
         this.reservations = reservations;
