@@ -63,6 +63,8 @@ public class Reservation implements Serializable {
         this.id = id;
     }
 
+
+
     public DateTime getStart() {
         return reservation_start;
     }

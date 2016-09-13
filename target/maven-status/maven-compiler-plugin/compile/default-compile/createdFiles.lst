@@ -6,8 +6,10 @@ com/piksel/rooms/representation/Member.class
 com/piksel/rooms/config/SqlInitialization$1.class
 com/piksel/rooms/representation/Reservation.class
 com/piksel/rooms/representation/Room.class
+com/piksel/rooms/config/JsonSerializeConfig.class
 com/piksel/rooms/config/ObjectMapperFactory.class
 com/piksel/rooms/config/SqlInitialization.class
+com/piksel/rooms/config/ObjectMapperFactory$1.class
 com/piksel/rooms/persistence/ReservationDao.class
 com/piksel/rooms/persistence/RoomDao.class
 com/piksel/rooms/resources/ReservationsResource.class

@@ -1,21 +1,16 @@
 package com.piksel.rooms.resources;
+
 import com.piksel.rooms.persistence.ReservationDao;
-import com.piksel.rooms.representation.OreservRequest;
 import com.piksel.rooms.representation.Reservation;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Component;
+
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
+
 @Path("/reservations")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -23,25 +18,23 @@ import java.util.List;
 @Component
 public class ReservationsResource {
     private ReservationDao reservationDao;
+
     @Inject
     public ReservationsResource(ReservationDao reservationDao) {
         this.reservationDao = reservationDao;
     }
+
     @GET
-    public List<Reservation> getAll() {
-        return this.reservationDao.findAll();
+    public List<Reservation> getAll(@QueryParam("startDate") String startDate) {
+        List<Reservation> reservations = null;
+        if (startDate != null) {
+            reservations = reservationDao.findReservationsByDay(new DateTime(startDate));
+        } else {
+            reservations = reservationDao.findAll();
+        }
+        return reservations;
     }
     /*
-    @GET
-    @Path("/")
-    public List<Reservation> getAllByDate(@QueryParam("date") String dayString) {
-        if(dayString != ""){
-            DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
-            DateTime dateTime = formatter.parseDateTime(dayString);
-            return reservationDao.findReservationsByDay(dateTime);
-        }
-        return null;
-    }
     @GET
     @Path("/")
     public List<Reservation> getAllByDateRange(@QueryParam("dateStart") String dayStartString, @QueryParam("dateEnd") String dayEndString) {

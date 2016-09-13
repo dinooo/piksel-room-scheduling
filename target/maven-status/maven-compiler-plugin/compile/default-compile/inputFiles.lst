@@ -9,6 +9,8 @@
 /home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/resources/ReservationsResource.java
 /home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/resources/MembersResource.java
 /home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/config/ObjectMapperFactory.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/config/CustomDateSerializer.java
 /home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/config/SqlInitialization.java
+/home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/config/JasonSerializeConfig.java
 /home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/config/JerseyInitialization.java
 /home/dino/IdeaProjects/rooms-rest-services/src/main/java/com/piksel/rooms/persistence/RoomDao.java
