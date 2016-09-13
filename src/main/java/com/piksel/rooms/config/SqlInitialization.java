@@ -42,6 +42,16 @@ public class SqlInitialization {
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter() {{
             setDatabase(Database.POSTGRESQL);
         }});
+
+        entityManagerFactoryBean.getJpaPropertyMap().put("jadira.usertype.autoRegisterUserTypes", "true");
+        entityManagerFactoryBean.getJpaPropertyMap().put("hibernate.physical_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
+        entityManagerFactoryBean.getJpaPropertyMap().put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
+        entityManagerFactoryBean.getJpaPropertyMap().put("hibernate.temp.use_jdbc_metadata_defaults", "false");
+        entityManagerFactoryBean.getJpaPropertyMap().put("hibernate.jadira.usertype.autoRegisterUserTypes", "true");
+        entityManagerFactoryBean.getJpaPropertyMap().put("hibernate.jadira.usertype.javaZone", "UTC");
+        entityManagerFactoryBean.getJpaPropertyMap().put("hibernate.jadira.usertype.databaseZone", "UTC");
+        entityManagerFactoryBean.getJpaPropertyMap().put("hibernate.jadira.usertype.databaseZone", "UTC");
+
         return entityManagerFactoryBean;
     }
 
