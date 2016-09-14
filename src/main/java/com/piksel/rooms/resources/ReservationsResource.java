@@ -59,13 +59,16 @@ public class ReservationsResource {
                 } else {
                 //else sluzi ako je neka nova soba u pitanju
                     return saveReservations(newReservation);
-
                 }
             }
         }
+        //izvrsava se samo prvi put ako nema niti jedne rezervacije u bp
+        return saveReservations(newReservation);
 
-        return newReservation;
+
     }
+
+
 
     private Reservation saveReservations(@Valid Reservation newReservation) {
         //ako se upisuje samo jednom:
@@ -75,9 +78,9 @@ public class ReservationsResource {
 
         //treba rezervaciju upisati onoliko puta koliko se puta ponavlja
         for (int i = 0; i < newReservation.getNumber_of_occuring(); i++) {
-            Reservation reservation = new Reservation(newReservation.getReservation_start().plusDays(i), newReservation.getReservation_end().plusDays(i),
-                    newReservation.getDescription(), newReservation.is_occuring(), newReservation.getNumber_of_occuring(),
-                    newReservation.getRoom_id(), newReservation.getMember_id());
+            Reservation reservation = new Reservation(newReservation);
+            reservation.setReservation_start(reservation.getReservation_start().plusDays(i));
+            reservation.setReservation_end(reservation.getReservation_end().plusDays(i));
             reservationDao.save(reservation);
         }
         return newReservation;
