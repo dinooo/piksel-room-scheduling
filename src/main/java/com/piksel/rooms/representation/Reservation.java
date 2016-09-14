@@ -27,7 +27,8 @@ public class Reservation implements Serializable {
     @Column(name = "is_occuring")
     private boolean is_occuring;
 
-    //private int numberOfOccuring;
+    @NotNull
+    private int number_of_occuring;
 
     @JoinColumn(name = "room_id")
     private Long room_id;
@@ -37,22 +38,24 @@ public class Reservation implements Serializable {
     public Reservation() {
     }
 
-    /*
-    public Reservation(String description, boolean is_occuring, Long room_id, Long member_id) {
+    public Reservation(DateTime reservation_start, DateTime reservation_end, String description, boolean is_occuring, int number_of_occuring, Long room_id, Long member_id) {
+        this.reservation_start = reservation_start;
+        this.reservation_end = reservation_end;
         this.description = description;
         this.is_occuring = is_occuring;
+        this.number_of_occuring = number_of_occuring;
         this.room_id = room_id;
         this.member_id = member_id;
     }
-    */
-    public Reservation(DateTime start, DateTime end, String description, boolean is_occuring, int numberOfOccuring, Long room_id, Long member_id) {
-        this.reservation_start = start;
-        this.reservation_end = end;
-        this.description = description;
-        this.is_occuring = is_occuring;
-        //this.numberOfOccuring = numberOfOccuring;
-        this.room_id = room_id;
-        this.member_id = member_id;
+
+    public Reservation(Reservation reservation){
+        this.reservation_start = reservation.getReservation_start();
+        this.reservation_end = reservation.getReservation_end();
+        this.description = reservation.getDescription();
+        this.is_occuring = reservation.is_occuring();
+        this.number_of_occuring = reservation.getNumber_of_occuring();
+        this.room_id = reservation.getRoom_id();
+        this.member_id = reservation.getMember_id();
     }
 
     public Long getId() {
@@ -63,22 +66,20 @@ public class Reservation implements Serializable {
         this.id = id;
     }
 
-
-
-    public DateTime getStart() {
+    public DateTime getReservation_start() {
         return reservation_start;
     }
 
-    public void setStart(DateTime start) {
-        this.reservation_start = start;
+    public void setReservation_start(DateTime reservation_start) {
+        this.reservation_start = reservation_start;
     }
 
-    public DateTime getEnd() {
+    public DateTime getReservation_end() {
         return reservation_end;
     }
 
-    public void setEnd(DateTime end) {
-        this.reservation_end = end;
+    public void setReservation_end(DateTime reservation_end) {
+        this.reservation_end = reservation_end;
     }
 
     public String getDescription() {
@@ -87,6 +88,22 @@ public class Reservation implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean is_occuring() {
+        return is_occuring;
+    }
+
+    public void setIs_occuring(boolean is_occuring) {
+        this.is_occuring = is_occuring;
+    }
+
+    public int getNumber_of_occuring() {
+        return number_of_occuring;
+    }
+
+    public void setNumber_of_occuring(int number_of_occuring) {
+        this.number_of_occuring = number_of_occuring;
     }
 
     public Long getRoom_id() {
@@ -105,24 +122,6 @@ public class Reservation implements Serializable {
         this.member_id = member_id;
     }
 
-    public boolean isIs_occuring() {
-        return is_occuring;
-    }
-
-    public void setIs_occuring(boolean is_occuring) {
-        this.is_occuring = is_occuring;
-    }
-
-    /*
-    public int getNumberOfOccuring() {
-        return numberOfOccuring;
-    }
-
-    public void setNumberOfOccuring(int numberOfOccuring) {
-        this.numberOfOccuring = numberOfOccuring;
-    }
-    */
-
     @Override
     public String toString() {
         return "Reservation{" +
@@ -131,6 +130,7 @@ public class Reservation implements Serializable {
                 ", reservation_end=" + reservation_end +
                 ", description='" + description + '\'' +
                 ", is_occuring=" + is_occuring +
+                ", number_of_occuring=" + number_of_occuring +
                 ", room_id=" + room_id +
                 ", member_id=" + member_id +
                 '}';
@@ -144,6 +144,7 @@ public class Reservation implements Serializable {
         Reservation that = (Reservation) o;
 
         if (is_occuring != that.is_occuring) return false;
+        if (number_of_occuring != that.number_of_occuring) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (reservation_start != null ? !reservation_start.equals(that.reservation_start) : that.reservation_start != null)
             return false;
@@ -162,6 +163,7 @@ public class Reservation implements Serializable {
         result = 31 * result + (reservation_end != null ? reservation_end.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (is_occuring ? 1 : 0);
+        result = 31 * result + number_of_occuring;
         result = 31 * result + (room_id != null ? room_id.hashCode() : 0);
         result = 31 * result + (member_id != null ? member_id.hashCode() : 0);
         return result;

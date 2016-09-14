@@ -7,8 +7,11 @@ import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/reservations")
@@ -34,74 +37,50 @@ public class ReservationsResource {
         }
         return reservations;
     }
-    /*
-    @GET
-    @Path("/")
-    public List<Reservation> getAllByDateRange(@QueryParam("dateStart") String dayStartString, @QueryParam("dateEnd") String dayEndString) {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
-        DateTime dateStart = formatter.parseDateTime(dayStartString);
-        DateTime dateEnd = formatter.parseDateTime(dayEndString);
-        return reservationDao.findReservationsByDateRange(dateStart, dateEnd);
-    }
-    @GET
-    @Path("{id}")
-    public Reservation getOne(@PathParam("id") long id) {
-        Reservation reservation = reservationDao.findOne(id);
-        if (reservation == null)
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        return reservation;
-    }
+
     @POST
     public Reservation addReservation(@Valid Reservation newReservation) {
+
         List<Reservation> reservations = reservationDao.findAll();
-        if (reservations.size() == 0)
-            return reservationDao.save(newReservation);
-        for (Reservation reservation : reservations) {
-            //provjera da li je trazena soba rezervisana, i da li je rezervacija ponavljajuca
-            if (newReservation.getRoom_id() == reservation.getRoom_id()) {
-                //provjera u kojem vremenu je rezervisana
-                if (((newReservation.getStart().isBefore(reservation.getStart()) && newReservation.getEnd().isBefore(reservation.getStart()))
-                        || (newReservation.getStart().isAfter(reservation.getEnd()) && newReservation.getEnd().isAfter(reservation.getEnd())))
-                        && reservation.isIs_occuring() == false) {
-                    //pita da li se novi termin ponavlja, i ako da, toliko dana ga rezervisi
-                    if (newReservation.isIs_occuring() == true) {
-                        Reservation reservationOccuring = new Reservation(newReservation.getStart(), newReservation.getEnd(),
-                                newReservation.getDescription(), newReservation.isIs_occuring(), newReservation.getNumberOfOccuring(),
-                                newReservation.getRoom_id(), newReservation.getMember_id());
-                        for (int i = 0; i < newReservation.getNumberOfOccuring(); i++) {
-                            reservationDao.save(reservationOccuring);
-                            reservationOccuring.getStart().plusDays(1);
-                            reservationOccuring.getEnd().plusDays(1);
-                            //vraca zadnju dodatu rezervaciju:
-                            if (i == (newReservation.getNumberOfOccuring() - 1))
-                                return newReservation;
-                        }
-                    } else
-                        return reservationDao.save(newReservation);
+
+        if(reservations.size() != 0){
+            for (Reservation reservation : reservations) {
+
+                //provjera da li je soba rezervisana, koju treba rezervisati. dohvata sobu
+                if (newReservation.getRoom_id() == reservation.getRoom_id()) {
+
+                    //provjera da li je vrijeme rezervacije nove sobe prije ili nakonr rezervisanog vremena date sobe
+                    if ((newReservation.getReservation_start().isBefore(reservation.getReservation_start()) && newReservation.getReservation_end().isBefore(reservation.getReservation_start()))
+                            || (newReservation.getReservation_start().isAfter(reservation.getReservation_end()) && newReservation.getReservation_end().isAfter(reservation.getReservation_end()))) {
+
+                        return saveReservations(newReservation);
+                    }
+
+                } else {
+                //else sluzi ako je neka nova soba u pitanju
+                    return saveReservations(newReservation);
+
                 }
             }
         }
-        return null;
+
+        return newReservation;
     }
-    @PUT
-    @Path("{id}")
-    public Reservation update(@PathParam("id") long id, @Valid Reservation reservation) {
-        if (reservationDao.findOne(id) == null) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        } else {
-            reservation.setId(id);
-            return reservationDao.save(reservation);
+
+    private Reservation saveReservations(@Valid Reservation newReservation) {
+        //ako se upisuje samo jednom:
+        if(newReservation.getNumber_of_occuring() == 0){
+            return reservationDao.save(newReservation);
         }
-    }
-    @DELETE
-    @Path("{id}")
-    public void delete(@PathParam("id") long id) {
-        Reservation reservation = reservationDao.findOne(id);
-        if (reservation == null) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        } else {
-            reservationDao.delete(reservation);
+
+        //treba rezervaciju upisati onoliko puta koliko se puta ponavlja
+        for (int i = 0; i < newReservation.getNumber_of_occuring(); i++) {
+            Reservation reservation = new Reservation(newReservation.getReservation_start().plusDays(i), newReservation.getReservation_end().plusDays(i),
+                    newReservation.getDescription(), newReservation.is_occuring(), newReservation.getNumber_of_occuring(),
+                    newReservation.getRoom_id(), newReservation.getMember_id());
+            reservationDao.save(reservation);
         }
+        return newReservation;
     }
-    */
+
 }
