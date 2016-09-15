@@ -1,6 +1,5 @@
 package com.piksel.rooms.persistence;
 
-import com.piksel.rooms.representation.OreservRequest;
 import com.piksel.rooms.representation.Reservation;
 import org.joda.time.DateTime;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,11 +26,4 @@ public interface ReservationDao extends JpaRepository<Reservation, Long> {
     @Query("SELECT r FROM Reservation r WHERE r.reservation_uuid = :uuid")
     List<Reservation> findByUUID(@Param("uuid") UUID uuid);
 
-
-    //resevation uid nova kolona, ako se
-
-    /*
-    @Query("SELECT r FROM Reservation r WHERE r.start BETWEEN :dateStart AND :dateEnd")
-    List<Reservation> findReservationsByDateRange(@Param("dateStart") DateTime dateStart, @Param("dateEnd") DateTime dateEnd);
-    */
 }
