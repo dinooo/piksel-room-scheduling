@@ -12,7 +12,7 @@ com/piksel/rooms/config/SqlInitialization.class
 com/piksel/rooms/config/ObjectMapperFactory$1.class
 com/piksel/rooms/persistence/ReservationDao.class
 com/piksel/rooms/persistence/RoomDao.class
+com/piksel/rooms/config/WebSecurityConfig.class
 com/piksel/rooms/resources/ReservationsResource.class
 com/piksel/rooms/persistence/MemberDao.class
 com/piksel/rooms/resources/MembersResource.class
-com/piksel/rooms/representation/OreservRequest.class

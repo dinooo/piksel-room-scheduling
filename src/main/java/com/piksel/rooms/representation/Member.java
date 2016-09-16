@@ -20,6 +20,10 @@ public class Member implements Serializable {
     private String username;
     @NotNull
     private String password;
+    @NotNull
+    private String role;
+    @NotNull
+    private boolean enabled;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -78,6 +82,22 @@ public class Member implements Serializable {
         this.reservations = reservations;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public String toString() {
         return "Member{" +
@@ -86,22 +106,27 @@ public class Member implements Serializable {
                 ", last_name='" + last_name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", enabled=" + enabled +
                 ", reservations=" + reservations +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Member member = (Member) o;
 
+        if (enabled != member.enabled) return false;
         if (id != null ? !id.equals(member.id) : member.id != null) return false;
         if (name != null ? !name.equals(member.name) : member.name != null) return false;
         if (last_name != null ? !last_name.equals(member.last_name) : member.last_name != null) return false;
         if (username != null ? !username.equals(member.username) : member.username != null) return false;
         if (password != null ? !password.equals(member.password) : member.password != null) return false;
+        if (role != null ? !role.equals(member.role) : member.role != null) return false;
         return reservations != null ? reservations.equals(member.reservations) : member.reservations == null;
 
     }
@@ -113,6 +138,8 @@ public class Member implements Serializable {
         result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (enabled ? 1 : 0);
         result = 31 * result + (reservations != null ? reservations.hashCode() : 0);
         return result;
     }
