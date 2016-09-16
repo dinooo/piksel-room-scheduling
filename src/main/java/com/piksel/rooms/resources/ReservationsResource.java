@@ -68,7 +68,6 @@ public class ReservationsResource {
     @PUT
     @Path("/{id}")
     public Reservation update(@PathParam("id") long id, @QueryParam("isSeries") boolean isSeries, @Valid Reservation newReservation) {
-        List<Reservation> reservations = reservationDao.findAll();
         if (reservationDao.findOne(id) == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
